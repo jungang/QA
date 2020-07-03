@@ -24,8 +24,12 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Element Admin',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: '知识库 - 问答',
+      // logo: 'http://demo.sc.chinaz.com/Files/pic/icons/5162/129.png'
+      // logo: 'https://www.easyicon.net/api/resizeApi.php?id=1254098&size=128'
+      logo: 'https://www.easyicon.net/api/resizeApi.php?id=1266374&size=128'
+      // logo: 'http://demo.sc.chinaz.com/Files/pic/icons/2156/%E6%B0%B4%E6%99%B6%E6%A1%8C%E9%9D%A2%E5%9B%BE%E6%A0%87%E4%B8%8B%E8%BD%BD7.png'
+      // logo: 'http://demo.sc.chinaz.com/Files/pic/icons/2156/%E6%B0%B4%E6%99%B6%E6%A1%8C%E9%9D%A2%E5%9B%BE%E6%A0%87%E4%B8%8B%E8%BD%BD6.png'
     }
   }
 }

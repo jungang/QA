@@ -73,13 +73,13 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/index',
     children: [
       {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        path: 'index',
+        component: () => import('@/views/index/index'),
+        name: 'Index',
+        meta: { title: '知识库', icon: 'education', affix: true }
       }
     ]
   }
@@ -238,35 +238,42 @@ export const asyncRoutes = [
     path: '/excel',
     component: Layout,
     redirect: '/excel/export-excel',
+    alwaysShow: true,
     name: 'Excel',
     meta: {
-      title: 'Excel',
+      title: '数据管理',
       icon: 'excel'
     },
     children: [
-      {
-        path: 'export-excel',
-        component: () => import('@/views/excel/export-excel'),
-        name: 'ExportExcel',
-        meta: { title: 'Export Excel' }
-      },
-      {
-        path: 'export-selected-excel',
-        component: () => import('@/views/excel/select-excel'),
-        name: 'SelectExcel',
-        meta: { title: 'Export Selected' }
-      },
-      {
-        path: 'export-merge-header',
-        component: () => import('@/views/excel/merge-header'),
-        name: 'MergeHeader',
-        meta: { title: 'Merge Header' }
-      },
+      // {
+      //   path: 'export-excel',
+      //   component: () => import('@/views/excel/export-excel'),
+      //   name: 'ExportExcel',
+      //   meta: { title: 'Export Excel' }
+      // },
+      // {
+      //   path: 'export-selected-excel',
+      //   component: () => import('@/views/excel/select-excel'),
+      //   name: 'SelectExcel',
+      //   meta: { title: 'Export Selected' }
+      // },
+      // {
+      //   path: 'export-merge-header',
+      //   component: () => import('@/views/excel/merge-header'),
+      //   name: 'MergeHeader',
+      //   meta: { title: 'Merge Header' }
+      // },
       {
         path: 'upload-excel',
         component: () => import('@/views/excel/upload-excel'),
         name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
+        meta: { title: 'excel数据上传' }
+      },
+      {
+        path: 'excel-detail',
+        component: () => import('@/views/excel/upload-excel'),
+        name: 'UploadExcel',
+        meta: { title: '数据详情' }
       }
     ]
   },
