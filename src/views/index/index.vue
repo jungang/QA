@@ -9,7 +9,7 @@
       </el-col>
       <el-col class="max-height" :span="4">
         <div class="grid-content">
-          <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
+          <el-table highlight-current-row :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
             <el-table-column label="全部问题">
 
               <template slot-scope="{row}">
@@ -84,37 +84,49 @@ export default {
         label: '套餐类',
         children: [{
           label: '二级 1-1',
+          id: '0001',
           children: [{
-            label: '三级 1-1-1'
+            label: '三级 1-1-1',
+            id: '000101'
           }]
         }]
       }, {
         label: '业务类',
+        id: '0002',
         children: [{
           label: '二级 2-1',
+          id: '000201',
           children: [{
-            label: '三级 2-1-1'
+            label: '三级 2-1-1',
+            id: '00020101'
           }]
         }, {
           label: '二级 2-2',
+          id: '0003',
           children: [{
-            label: '三级 2-2-1'
+            label: '三级 2-2-1',
+            id: '000301'
           }]
         }]
       }, {
         label: '流程类',
         children: [{
           label: '二级 3-1',
+          id: '0004',
           children: [{
             label: '三级 3-1-1',
+            id: '000401',
             children: [{
-              label: '四级 4-1-1'
+              label: '四级 4-1-1',
+              id: '00040101'
             }]
           }]
         }, {
           label: '二级 3-2',
+          id: '000402',
           children: [{
-            label: '三级 3-2-1'
+            label: '三级 3-2-1',
+            id: '0000201'
           }]
         }]
       }],
@@ -136,33 +148,33 @@ export default {
         name: '其他问题2'
       }],
       search: '',
-      // content: {
-      //   type: 1, //1：标准  2：流程
-      //   items: [{
-      //     title: '一、询问办理手机号码',
-      //     path: '系统查询路径：查询到期时间路径：CBSS系统-营业受理-综合查询-用户资料综合查询-输入号码，点查询-优惠信息',
-      //     memo: '场景说明：如本人手机号XXXXXX',
-      //     list: [{
-      //       content: '对应话术1：是您来电的这个号码要办理吗？'
-      //     },{
-      //       content: '对应话术2：是您来电的这个号码要办理吗？'
-      //     },{
-      //       content: '对应话术3：是您来电的这个号码要办理吗？'
-      //     }]
-      //   },{
-      //     title: '二、询问办理身份信息',
-      //     path: '',
-      //     memo: '',
-      //     list: [{
-      //       content: '对应话术1：是您要办理吗？'
-      //     },{
-      //       content: '对应话术2：是您来电的这个号码要办理吗？'
-      //     },{
-      //       content: '对应话术3：是您来电的这个号码要办理吗？'
-      //     }]
-      //   }]
-      // },
-      content: {
+      content2: {
+        type: 1, // 1：标准  2：流程
+        items: [{
+          title: '一、询问办理手机号码',
+          path: '系统查询路径：查询到期时间路径：CBSS系统-营业受理-综合查询-用户资料综合查询-输入号码，点查询-优惠信息',
+          memo: '场景说明：如本人手机号XXXXXX',
+          list: [{
+            content: '对应话术1：是您来电的这个号码要办理吗？'
+          }, {
+            content: '对应话术2：是您来电的这个号码要办理吗？'
+          }, {
+            content: '对应话术3：是您来电的这个号码要办理吗？'
+          }]
+        }, {
+          title: '二、询问办理身份信息',
+          path: '',
+          memo: '',
+          list: [{
+            content: '对应话术1：是您要办理吗？'
+          }, {
+            content: '对应话术2：是您来电的这个号码要办理吗？'
+          }, {
+            content: '对应话术3：是您来电的这个号码要办理吗？'
+          }]
+        }]
+      },
+      content1: {
         type: 2, // 1：标准  2：流程
         items: [{
           title: '开始',
@@ -200,7 +212,8 @@ export default {
             btns: []
           }]
         }]
-      }
+      },
+      content: {}
     }
   },
   computed: {
@@ -212,16 +225,27 @@ export default {
     console.log('created...:')
   },
   methods: {
+    // 获取树形结构树点击行数据
     handleDragEnter(draggingNode, dropNode, ev) {
-      console.log('tree drag enter: ', dropNode.label)
+      console.log('tree drag enter: ', dropNode.label + ',' + dropNode.id)
     },
+
+    // 流程点击按钮
     btnClick(obj) {
       console.log(obj)
       this.content.items.push(obj.items[0])
       console.log(this.content)
     },
+
+    // 列表点击行
     getLine(obj) {
-      console.log(obj)
+      console.log(obj.id)
+      // -----测试代码  流程和常规数据
+      if (obj.id === '001' || obj.id === '003') {
+        this.content = this.content1
+      } else {
+        this.content = this.content2
+      }
     }
   }
 
