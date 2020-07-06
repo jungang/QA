@@ -221,7 +221,7 @@ $axure.internal(function ($ax) {
     var _notAllowedInvisible = function (id) {
         var type = $ax.getTypeFromElementId(id);
         if ($ax.public.fn.IsReferenceDiagramObject(type) || $ax.public.fn.IsLayer(type)) return false;
-        return !($ax.public.fn.IsVector(type) && _hasCompoundImage(id)); 
+        return !($ax.public.fn.IsVector(type) && _hasCompoundImage(id));
     }
 
     var _hasCompoundImage = function (id) {
@@ -330,7 +330,7 @@ $axure.internal(function ($ax) {
         var axObj = $obj(elementId);
         var axObjLabel = axObj ? axObj.label : eventInfo.label;
         var axObjType = axObj ? axObj.friendlyType : eventInfo.friendlyType;
-        if (!skipShowDescriptions || eventDescription == 'OnPageLoad') postMessage('axEvent', { 'label': axObjLabel, 'type': axObjType, 'event': axEventObject });
+        if (!skipShowDescriptions || eventDescription == 'OnPageLoad') postMessage('axEvent', { label: axObjLabel, 'type': axObjType, 'event': axEventObject });
 
         var bubble = true;
         var showCaseDescriptions = !skipShowDescriptions && _shouldShowCaseDescriptions(axEventObject);
@@ -509,7 +509,7 @@ $axure.internal(function ($ax) {
         links.style.left = left;
         $ax.visibility.SetVisible(links, true);
         $ax.legacy.BringToFront(linksId, true);
-        // Switch to using jquery if this is still needed. Really old legacy code, likely for a browser no longer supported. 
+        // Switch to using jquery if this is still needed. Really old legacy code, likely for a browser no longer supported.
         //$ax.legacy.RefreshScreen();
     };
 
@@ -535,7 +535,7 @@ $axure.internal(function ($ax) {
             var currentCase = caseGroup[i];
             if(!currentCase.condition || _processCondition(currentCase.condition, eventInfo)) {
                 postMessage('axCase', { 'item': currentCase.description, 'description': currentCase.conditionString, 'color': currentCase.caseColorHex })
-                
+
                 for(var j = 0; j < currentCase.actions.length; j++) {
                     var currentAction = currentCase.actions[j];
                     if (currentAction.action != 'refreshRepeater') {
@@ -884,7 +884,7 @@ $axure.internal(function ($ax) {
             }
 
             // Don't drag after mousing down on a plain text object
-            if ($ax.public.fn.IsTextArea(dObj.type) || $ax.public.fn.IsTextBox(dObj.type) || $ax.public.fn.IsListBox(dObj.type) || 
+            if ($ax.public.fn.IsTextArea(dObj.type) || $ax.public.fn.IsTextBox(dObj.type) || $ax.public.fn.IsListBox(dObj.type) ||
                 $ax.public.fn.IsComboBox(dObj.type) || $ax.public.fn.IsCheckBox(dObj.type) || $ax.public.fn.IsRadioButton(dObj.type)) {
                 $element.bind($ax.features.eventNames.mouseDownName, function(event) {
                     event.originalEvent.donotdrag = true;
@@ -1140,7 +1140,7 @@ $axure.internal(function ($ax) {
                 } else {
                     onClick = function () {
                         $ax.style.SetWidgetSelected(elementId, !$ax.style.IsWidgetSelected(elementId), true);
-                    };                                        
+                    };
                 }
                 input.click(onClick);
 
@@ -1403,7 +1403,7 @@ $axure.internal(function ($ax) {
                 if (!elementId) fireEventThroughContainers('onKeyUp', undefined, false, [$ax.constants.PAGE_TYPE, $ax.constants.REFERENCE_DIAGRAM_OBJECT_TYPE, $ax.constants.DYNAMIC_PANEL_TYPE, $ax.constants.REPEATER],
                     [$ax.constants.PAGE_TYPE, $ax.constants.REFERENCE_DIAGRAM_OBJECT_TYPE, $ax.constants.LAYER_TYPE]);
                 else _raiseSyntheticEvent(elementId, 'onKeyUp', false, undefined, true);
-                
+
                 //check if the key is handled before triggering player shortcuts
                 if(!e.isDefaultPrevented() && !elementId) {
                     switch(e.which) {
@@ -1938,7 +1938,7 @@ $axure.internal(function ($ax) {
             $win.bind($ax.features.eventNames.mouseDownName, _updateMouseLocation);
             $win.bind($ax.features.eventNames.mouseUpName, function(e) { _updateMouseLocation(e, true); });
         }
-        
+
         $win.scroll(function () { _setCanClick(false); });
         $win.bind($ax.features.eventNames.mouseDownName, function () { _setCanClick(true); });
 

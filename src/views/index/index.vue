@@ -1,141 +1,104 @@
 <template>
   <div class="app-container">
-    <el-row class="max-height">
-      <el-col class="max-height" :span="4">
-        <div class="grid-content">
-          <h3>全部知识库分类</h3>
-          <el-tree :data="data" :props="defaultProps" :highlight-current="true" accordion @node-click="handleDragEnter" />
-        </div>
-      </el-col>
-      <el-col class="max-height" :span="4">
-        <div class="grid-content">
-          <el-table :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))" style="width: 100%">
-            <el-table-column label="全部问题">
 
-              <template slot-scope="{row}">
+    <split-pane split="vertical" :default-percent="20" @resize="resize">
+      <template slot="paneL">
+        <el-input
+          v-model="filterText"
+          placeholder="输入关键字进行过滤"
+        />
+        <el-tree
+          ref="tree"
+          :data="allData.data"
+          :props="defaultProps"
+          :highlight-current="true"
+          default-expand-all
+          :expand-on-click-node="false"
+          :filter-node-method="filterNode"
+          @node-click="handleDragEnter"
+        />
 
-                <p style="line-height:0" @click="getLine(row)">{{ row.name }}</p>
-              </template>
+      </template>
+      <template slot="paneR">
+        <split-pane split="vertical" :default-percent="40" @resize="resize">
 
-            </el-table-column>
-            <el-table-column align="right">
-            <!--eslint-disable-line-->
-              <template slot="header" slot-scope="scope"> <!--eslint-disable-line-->
-                <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-      </el-col>
-      <el-col class="max-height" :span="16">
-        <div class="grid-content">
-          <el-tabs class="" type="border-card">
-            <el-tab-pane style="padding:0px 30px">
-              <span slot="label">
-                <i class="el-icon-reading" /> 套餐标准说明</span>
-              <div v-if="content.type==1">
-                <div v-for="item in content.items" :key="item.title">
-                  <h3>{{ item.title }}</h3>
-                  <p v-for="cont in item.list" :key="cont.content" style="color:#d36261">
-                    {{ cont.content }}
-                  </p>
-                  <p>{{ item.memo }}</p>
-                  <p>{{ item.path }}</p>
-                </div>
+          <template slot="paneL">
+            <el-input v-model="searchKeyword" placeholder="输入关键字搜索" @input="handleFilter" />
+            <ul class="q-list">
+              <li
+                v-for="item in listQuestions"
+                :key="item.id"
+                :class="item.id===currentQuestion.id?'cq':''"
+                @click="getLine(item)"
+              >
+                {{ item.name }}
+              </li>
+            </ul>
+          </template>
+          <template slot="paneR">
+
+            <span slot="label">
+              <i class="el-icon-reading" /> 套餐标准说明</span>
+            <div v-if="answer.type==1">
+              <div v-for="item in answer.items" :key="item.title">
+                <h3>{{ item.title }}</h3>
+                <p v-for="cont in item.list" :key="cont.content" style="color:#d36261">
+                  {{ cont.content }}
+                </p>
+                <p>{{ item.memo }}</p>
+                <p>{{ item.path }}</p>
               </div>
-              <div v-if="content.type==2">
-                <div v-for="item in content.items" :key="item.title">
-                  <el-card class="box-card">
-                    <div slot="header" class="clearfix">
-                      <span>{{ item.title }}</span>
+            </div>
+            <div v-if="answer.type==2">
+              <div v-for="item in answer.items" :key="item.title">
+                <el-card class="box-card">
+                  <div slot="header" class="clearfix">
+                    <span>{{ item.title }}</span>
+                  </div>
+                  <div class="text item">
+                    {{ item.content }}
+                  </div>
+                  <div class="btn-div">
+                    <div v-if="item.btns.length>0">
+                      <el-button v-for="btn in item.btns" :key="btn.btnName" type="primary" @click.once="btnClick(btn)">{{ btn.btnName }}</el-button>
                     </div>
-                    <div class="text item">
-                      {{ item.content }}
-                    </div>
-                    <div class="btn-div">
-                      <div v-if="item.btns.length>0">
-                        <el-button v-for="btn in item.btns" :key="btn.btnName" type="primary" @click.once="btnClick(btn)">{{ btn.btnName }}</el-button>
-                      </div>
 
-                      <el-button v-if="item.btns.length==0" type="primary">结束</el-button>
-                    </div>
-                  </el-card>
-                </div>
+                    <el-button v-if="item.btns.length==0" type="primary">结束</el-button>
+                  </div>
+                </el-card>
               </div>
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-      </el-col>
-    </el-row>
+            </div>
+
+          </template>
+        </split-pane>
+      </template>
+    </split-pane>
+
   </div>
 </template>
 
 <script>
+import splitPane from 'vue-splitpane'
+import { allData } from '@/data/data'
 import {
   mapGetters
 } from 'vuex'
 
 export default {
   name: 'Index',
-  components: {},
+  components: { splitPane },
   data() {
     return {
-      data: [{
-        label: '套餐类',
-        children: [{
-          label: '二级 1-1',
-          children: [{
-            label: '三级 1-1-1'
-          }]
-        }]
-      }, {
-        label: '业务类',
-        children: [{
-          label: '二级 2-1',
-          children: [{
-            label: '三级 2-1-1'
-          }]
-        }, {
-          label: '二级 2-2',
-          children: [{
-            label: '三级 2-2-1'
-          }]
-        }]
-      }, {
-        label: '流程类',
-        children: [{
-          label: '二级 3-1',
-          children: [{
-            label: '三级 3-1-1',
-            children: [{
-              label: '四级 4-1-1'
-            }]
-          }]
-        }, {
-          label: '二级 3-2',
-          children: [{
-            label: '三级 3-2-1'
-          }]
-        }]
-      }],
+      allData: allData(),
       defaultProps: {
         children: 'children',
         label: 'label'
       },
-      tableData: [{
-        id: '001',
-        name: '套餐查询说明'
-      }, {
-        id: '002',
-        name: '流量办理流程'
-      }, {
-        id: '003',
-        name: '其他问题1'
-      }, {
-        id: '004',
-        name: '其他问题2'
-      }],
-      search: '',
+      filterText: '',
+      allQuestions: [],
+      listQuestions: [],
+      currentQuestion: {},
+      searchKeyword: '',
       // content: {
       //   type: 1, //1：标准  2：流程
       //   items: [{
@@ -162,7 +125,7 @@ export default {
       //     }]
       //   }]
       // },
-      content: {
+      answer: {
         type: 2, // 1：标准  2：流程
         items: [{
           title: '开始',
@@ -208,45 +171,89 @@ export default {
       'roles'
     ])
   },
+  watch: {
+    filterText(val) {
+      console.log(' val:', val)
+      this.$refs.tree.filter(val)
+    }
+  },
   created() {
     console.log('created...:')
+    this.createListQuestions(this.allData.data)
   },
   methods: {
+    filterNode(value, data) {
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
+    },
+    handleFilter() {
+      this.createListQuestions(this.allData.data)
+      console.log('this.allQuestions:', this.allQuestions)
+      this.listQuestions = this.allQuestions.filter(data => !this.searchKeyword || data.name.toLowerCase().includes(this.searchKeyword.toLowerCase()))
+    },
+    createListQuestions(data) {
+      this.allQuestions = []
+      data.forEach(item => this.recursionQ(item))
+
+      this.listQuestions = this.allQuestions
+      console.log('this.allQuestions:', this.allQuestions)
+    },
+    recursionQ(item) {
+      // console.log('item:', item)
+      // 添加问题
+      if (item.question && item.question.length > 0) item.question.forEach(q => this.allQuestions.push(q))
+      // 递归循环
+      if (item.children && item.children.length > 0) item.children.forEach(sub => this.recursionQ(sub))
+    },
+
+    resize() {
+      console.log('resize')
+    },
     handleDragEnter(draggingNode, dropNode, ev) {
+      this.searchKeyword = ''
       console.log('tree drag enter: ', dropNode.label)
+      console.log('dropNode.data: ', dropNode.data)
+      this.createListQuestions([dropNode.data])
     },
     btnClick(obj) {
       console.log(obj)
-      this.content.items.push(obj.items[0])
-      console.log(this.content)
+      this.answer.items.push(obj.items[0])
+      console.log(this.answer)
     },
     getLine(obj) {
-      console.log(obj)
+      this.currentQuestion = obj
+      console.log('this.currentQuestion:', this.currentQuestion)
     }
   }
 
 }
 
 </script>
-<style scoped>
+<style lang="scss" scoped>
   .app-container {
     position: relative;
     height: 100vh;
   }
 
-  .max-height {
-    height: 100%;
-    border-right: 5px #f2f2f2 solid;
+  .q-list {
+    padding: 0;
+    margin: 0;
+    li{
+      display: block;
+      color: gray;
+      padding: 5px;
+      border-bottom: 1px solid #e1e1e1;
+      cursor: pointer;
+    }
+    .cq{
+      color: #1919ff;
+    }
   }
 
   .btn-div {
-    width: 100;
+    /*width: 100;*/
     text-align: center;
     margin-top: 30px
-  }
-
-  /deep/ .el-tree-node__label {
-    font-size: 18px;
   }
 
 </style>

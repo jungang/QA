@@ -356,7 +356,7 @@ $axure.internal(function($ax) {
             fire: true,
             onComplete: onComplete
         });
-        
+
         if(options && options.bringToFront) $ax.legacy.BringToFront(elementId);
     };
 
@@ -603,7 +603,7 @@ $axure.internal(function($ax) {
                     childAnimationArray.push({ obj: child, sizingObj: childSizingObj, sizingCss: childCss });
                 });
             }
-            
+
             if (newLocationAndSizeCss.left || newLocationAndSizeCss.top) {
                 //var movedLeft = newLocationAndSizeCss.left;
                 //var movedTop = newLocationAndSizeCss.top;
@@ -769,7 +769,7 @@ $axure.internal(function($ax) {
         if(inputQuery.length) idQuery = inputQuery;
 
         if (idQuery.is('input') && ($ax.public.fn.IsCheckBox(idQuery.attr('type')) || idQuery.attr('type') == 'radio')) {
-            idQuery = idQuery.parent().find('label').find('div');
+            idQuery = idQuery.parent().find(label).find('div');
         }
 
         if(idQuery.is('div')) {
@@ -784,7 +784,7 @@ $axure.internal(function($ax) {
                 //if(isSoloBr(htmlContent)) return; // It has a solo br, then it was just put in for a newline, and paragraph already added the new line.
                 if (isSoloBr($(this).children())) return;
 
-                var htmlContent = $(this).html();            
+                var htmlContent = $(this).html();
                 //Replace line breaks (set in SetWidgetRichText) with newlines and nbsp's with regular spaces.
                 htmlContent = htmlContent.replace(/<br[^>]*>/ig, '\n').replace(/&nbsp;/ig, ' ');
                 textOut += $(htmlContent).text();
@@ -917,7 +917,7 @@ $axure.internal(function($ax) {
         //var targetTop = _getRelativeTop(id, scrollable);
         if(!scrollX) targetLeft = scrollable.scrollLeft;
         if(!scrollY) targetTop = scrollable.scrollTop;
-        
+
         if($scrollable.is('body')) {
             $scrollable = $('html,body');
         }
@@ -1200,14 +1200,14 @@ $axure.internal(function($ax) {
     //            position.top += Number(jElement.css('margin-top').replace("px", ""));
     //        }
     //    }
-        
+
     //    var boundingRect = {
     //        left: position.left,
     //        top: position.top,
     //        width: tempBoundingRect.width,
     //        height: tempBoundingRect.height
     //    };
-        
+
     //    return _populateBoundingRect(boundingRect);
     //};
 
@@ -1289,7 +1289,7 @@ $axure.internal(function($ax) {
         return _boundingRectForIds(childIds);
     }
 
-    $ax.public.fn.childrenBoundingRect = function () {        
+    $ax.public.fn.childrenBoundingRect = function () {
         var childIds = this.getChildren()[0].children;
         return _boundingRectForIds(childIds);
     };
@@ -1336,9 +1336,9 @@ $axure.internal(function($ax) {
     $ax.public.fn.offsetBoundingRect = function (ignoreRotation) {
         var elementId = this.getElementIds()[0];
         if (!elementId) return undefined;
-        
+
         //element is null if RDO
-        //data- values are for layers (legacy compound) 
+        //data- values are for layers (legacy compound)
         var element = document.getElementById(elementId);
         var position, size, rotation;
 
@@ -1347,7 +1347,7 @@ $axure.internal(function($ax) {
         var style;
         var movedLoc = $ax.visibility.getMovedLocation(elementId);
         var resizedSize = $ax.visibility.getResizedSize(elementId);
-        
+
         if (movedLoc) {
             position = movedLoc;
         } else if(element && element.getAttribute('data-left')) {
@@ -1402,7 +1402,7 @@ $axure.internal(function($ax) {
             var jObj = $(element);
             size = { width: jObj.outerWidth(), height: jObj.outerHeight() };
         }
-        
+
         var fixed = _fixedLocation(elementId, size);
         if(fixed.valid) {
             position.left = fixed.left;
@@ -1486,11 +1486,11 @@ $axure.internal(function($ax) {
             //    break;
             //} else loc += $ax.getNumFromPx(parent.css(prop));
             //}
-            
+
             var parentId = parentIds[i];
             if (parentId == parentScrollableId) break;
             var parentLoc = $ax('#' + parentId).offsetLocation();
-            loc = { 
+            loc = {
                 x: loc.x + parentLoc.x,
                 y: loc.y + parentLoc.y,
                 left: loc.left + parentLoc.left,

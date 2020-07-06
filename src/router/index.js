@@ -267,7 +267,7 @@ export const asyncRoutes = [
         path: 'upload-excel',
         component: () => import('@/views/excel/upload-excel'),
         name: 'UploadExcel',
-        meta: { title: 'excel数据上传' }
+        meta: { title: 'excel数据导入' }
       },
       {
         path: 'excel-detail',

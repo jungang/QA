@@ -347,14 +347,14 @@
             var obj = $obj(elementId);
             var widget = { valid: true, isWidget: true, obj: obj, elementQuery: elementQuery, isLayer: $ax.public.fn.IsLayer(obj.type) };
             widget.elementId = elementId;
-            widget.name = widget.label = (elementQuery.data('label') ? elementQuery.data('label') : '');
+            widget.name = widget.label = (elementQuery.data(label) ? elementQuery.data(label) : '');
             //widget.text = $ax('#' + elementId).text();
             widget.opacity = Number(elementQuery.css('opacity')) * 100;
             //widget.rotation = $ax.move.getRotationDegree(widget.elementId);
             var scriptId = $ax.repeater.getScriptIdFromElementId(elementId);
             var repeaterId = $ax.getParentRepeaterFromScriptId(scriptId);
             if(repeaterId) widget.repeater = $ax.public.fn.IsRepeater(obj.type) ? widget : _getWidgetInfo(repeaterId);
-            
+
             // Right now only dynamic panel can scroll
             if($ax.public.fn.IsDynamicPanel(obj.type)) {
                 var stateId = $ax.visibility.GetPanelState(elementId);
@@ -418,7 +418,7 @@
                     this.xProp = boundingRect.left;
                     this.yProp = boundingRect.top;
                     this.widthProp = boundingRect.width;
-                    this.heightProp = boundingRect.height;                    
+                    this.heightProp = boundingRect.height;
                 }
 
                 if(prop == 'pagex' || prop == 'pagey') {

@@ -1,7 +1,7 @@
 ﻿$axure = function(query) {
     return $axure.query(query);
 };
- 
+
 // ******* AxQuery and Page metadata ******** //
 (function() {
     var $ax = function() {
@@ -23,20 +23,20 @@
 
         return initFunction($ax);
     };
-    
-   var _lastFiredResize = 0; 
-   var _resizeFunctions = []; 
+
+   var _lastFiredResize = 0;
+   var _resizeFunctions = [];
    var _lastTimeout;
    var _fireResize = function() {
-       if (_lastTimeout) window.clearTimeout(_lastTimeout);       
+       if (_lastTimeout) window.clearTimeout(_lastTimeout);
        _lastTimeout = undefined;
-       _lastFiredResize = new Date().getTime(); 
-       for(var i = 0; i < _resizeFunctions.length; i++) _resizeFunctions[i](); 
+       _lastFiredResize = new Date().getTime();
+       for(var i = 0; i < _resizeFunctions.length; i++) _resizeFunctions[i]();
    };
-    
-   $axure.resize = function(fn) { 
-       if(fn) _resizeFunctions[_resizeFunctions.length] = fn; 
-       else $(window).resize(); 
+
+   $axure.resize = function(fn) {
+       if(fn) _resizeFunctions[_resizeFunctions.length] = fn;
+       else $(window).resize();
    };
 
     $(window).resize(function() {
@@ -70,7 +70,7 @@
         return _windowInfo;
     };
 
-    
+
     window.$obj = function(id) {
         return $ax.getObjectFromElementId(id);
     };
@@ -122,7 +122,7 @@
             } else if (firstString.charAt(0) == '#') {
                 _axQueryObject.elementId = firstString.substring(1);
             } else {
-                if (firstString == 'label') {
+                if (firstString == label) {
                     _axQueryObject.filterFunctions[0] = function(diagramObject) {
                         return queryArg instanceof Array && queryArg.indexOf(diagramObject.label) > 0 ||
                             queryArg instanceof RegExp && queryArg.test(diagramObject.label) ||
@@ -160,15 +160,15 @@
 
     $ax.public.fn.filter = function(query, queryArg) {
         var returnVal = _query(query, queryArg);
-        
+
         if(this.query.elementId) returnVal.query.elementId = this.query.elementId;
-        
+
         //If there is already a function, offset by 1 when copying other functions over.
         var offset = returnVal.query.filterFunctions[0] ? 1 : 0;
-        
+
         //Copy all functions over to new array.
         for(var i = 0; i < this.query.filterFunctions.length; i++) returnVal.query.filterFunctions[i+offset] = this.query.filterFunctions[i];
-        
+
         //Functions are in reverse order now
         returnVal.query.filterFunctions.reverse();
 
@@ -195,7 +195,7 @@
         });
         return elements;
     };
-    
+
     $ax.public.fn.getElementIds = function() {
         var elementIds = [];
         this.each(function(dObj, elementId) { elementIds[elementIds.length] = elementId; });
@@ -232,7 +232,7 @@
             var parent = $ax.getLayerParentFromElementId(elementId);
             // If layer is allowed we found parent, otherwise ignore and keep climbing
             if (parent) return filter.indexOf('layer') != -1 ? parent : getParent(parent);
-            
+
             // if state, then just return panel
             if(scriptId.indexOf('_state') != -1) {
                 var panelId = $ax.repeater.createElementId(scriptId.split('_')[0], itemNum);
@@ -315,7 +315,7 @@
             var isDynamicPanel = obj && obj.type == $ax.constants.DYNAMIC_PANEL_TYPE;
             //var isLayer = obj.type == $ax.constants.LAYER_TYPE;
             //var isMaster = obj.type == $ax.constants.MASTER_TYPE || obj.type == $ax.constants.REFERENCE_DIAGRAM_OBJECT_TYPE;
-            
+
             var isMenu = obj && obj.type == $ax.constants.MENU_OBJECT_TYPE;
             var isTreeNode = obj && obj.type == $ax.constants.TREE_NODE_OBJECT_TYPE;
             //var isTable = obj.type == $ax.constants.TABLE_TYPE;
@@ -340,7 +340,7 @@
                 // Menu doesn't want all children, only tables and menus, so it must be handled specially
                 var children = isMenu ? parent.children('.ax_table').add(parent.children('.ax_menu')) : parent.children();
                 children = $ax.visibility.getRealChildren(_fixForBasicLinks(children));
-                
+
                 // For tree nodes you want the the button shape contained by the elementQuery too
                 if(isTreeNode) {
                     var treeNodeChildren = $jobj(elementId).children();
@@ -350,7 +350,7 @@
                         if (childObj && $ax.public.fn.IsVector(childObj.type)) children = children.add(treeNodeChild);
                     }
                 }
-                
+
 
                 var childrenIds = [];
                 for(var childIndex = 0; childIndex < children.length; childIndex++) {
@@ -363,7 +363,7 @@
                     if(ignoreUnplaced && $ax.visibility.isScriptIdLimbo($ax.repeater.getScriptIdFromElementId(id))) continue;
                     childrenIds.push(id);
                 }
-                
+
                 if(deep) {
                     var childObjs = [];
                     for(var i = 0; i < childrenIds.length; i++) {
@@ -372,7 +372,7 @@
                     }
                     childrenIds = childObjs;
                 }
-                
+
                 return childrenIds;
             //}
 

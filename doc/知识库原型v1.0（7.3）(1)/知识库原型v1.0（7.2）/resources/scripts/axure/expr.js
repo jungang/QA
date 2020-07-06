@@ -121,7 +121,7 @@ $axure.internal(function($ax) {
         for(var i = 0; i < elementIds.length; i++) {
             elementIdsWithSuffix[i] = $ax.repeater.applySuffixToElementId(elementIds[i], suffix);
         }
-        return String($jobj(elementIdsWithSuffix).data('label'));
+        return String($jobj(elementIdsWithSuffix).data(label));
     };
 
     _exprHandlers.fcall = function(expr, eventInfo) {
@@ -423,7 +423,7 @@ $axure.internal(function($ax) {
         var id = ids[0];
         if(!id) return undefined;
         var stateId = $ax.visibility.GetPanelState(id);
-        return stateId && String($jobj(stateId).data('label'));
+        return stateId && String($jobj(stateId).data(label));
     };
 
     _exprFunctions.GetWidgetVisibility = function(ids) {
