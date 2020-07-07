@@ -5,45 +5,52 @@ const data = [
     question: [
       {
         id: '001',
-        name: '套餐查询说明1',
+        name: '套餐查询说明11111套餐查询说明11111套餐查询说明11111套餐查询说明11111',
         answer: {
-          type: 2, // 1：标准  2：流程
-          items: [{
+          type: 'branch', // 1：标准 article  2：流程 branchFlow
+          answerName: '套餐查询说明11111',
+          tag: '标准问题',
+          content: {
             title: '开始',
-            content: '话术：请问您想转入联通还是转出联通',
-            btns: [{
-              btnName: '携出',
-              items: [{
-                title: '携出',
-                content: '话术：客服代表挽留话术：请问您是因为什么原因要办理携号转网呢，我可以帮助您什么呢?资费太贵套餐不满意需求等，参考话术如下：',
-                btns: [{
-                  btnName: '符合',
-                  btns: [],
-                  items: [{
-                    title: '符合',
-                    content: '个人办理手续渠道如下：',
-                    btns: []
+            text: '话术：请问您想转入联通还是转出联通',
+            curFork: '',
+            fork: [
+              {
+                btnName: '携出',
+                content: {
+                  title: '携出',
+                  text: '话术：客服代表挽留话术：请问您是因为什么原因要办理携号转网呢，我可以帮助您什么呢?资费太贵套餐不满意需求等，参考话术如下：',
+                  fork: [{
+                    btnName: '符合',
+                    fork: [],
+                    content: {
+                      title: '符合',
+                      text: '个人办理手续渠道如下：',
+                      fork: []
+                    }
+                  },
+                  {
+                    btnName: '不符合',
+                    content: {
+                      title: '不符合',
+                      text: '不符合就算了，请另请高就，拜拜！！',
+                      fork: []
+                    },
+                    fork: []
                   }]
-                }, {
-                  btnName: '不符合',
-                  items: [{
-                    title: '不符合',
-                    content: '不符合就算了，请另请高就，拜拜！！',
-                    btns: []
-                  }],
-                  btns: []
-                }]
+                }
+
+              },
+              {
+                btnName: '携入',
+                content: {
+                  title: '携入',
+                  text: '就这样吧',
+                  fork: []
+                },
+                fork: []
               }]
-            }, {
-              btnName: '携入',
-              items: [{
-                title: '携入',
-                content: '就这样吧',
-                btns: []
-              }],
-              btns: []
-            }]
-          }]
+          }
         }
       }
     ],
@@ -52,8 +59,35 @@ const data = [
       question: [
         {
           id: '002',
-          name: '套餐查询说明2',
-          answer: {}
+          name: '套餐查询说明2222',
+          answer: {
+            type: 'article', // 1：标准  2：流程
+            answerName: '套餐查询说明2222',
+            tag: '标准问题',
+            content: [{
+              title: '一、询问办理手机号码',
+              path: '系统查询路径：查询到期时间路径：CBSS系统-营业受理-综合查询-用户资料综合查询-输入号码，点查询-优惠信息',
+              memo: '场景说明：如本人手机号XXXXXX',
+              list: [{
+                text: '对应话术1：是您来电的这个号码要办理吗？'
+              }, {
+                text: '对应话术2：是您来电的这个号码要办理吗？'
+              }, {
+                text: '对应话术3：是您来电的这个号码要办理吗？'
+              }]
+            }, {
+              title: '二、询问办理身份信息',
+              path: '',
+              memo: '',
+              list: [{
+                text: '对应话术1：是您要办理吗？'
+              }, {
+                text: '对应话术2：是您来电的这个号码要办理吗？'
+              }, {
+                text: '对应话术3：是您来电的这个号码要办理吗？'
+              }]
+            }]
+          }
         }
       ],
       children: [{
@@ -101,40 +135,40 @@ const data = [
 ]
 const answers = {
   type: 2, // 1：标准  2：流程
-  items: [{
+  content: [{
     title: '开始',
     content: '话术：请问您想转入联通还是转出联通',
-    btns: [{
+    fork: [{
       btnName: '携出',
-      items: [{
+      content: [{
         title: '携出',
         content: '话术：客服代表挽留话术：请问您是因为什么原因要办理携号转网呢，我可以帮助您什么呢?资费太贵套餐不满意需求等，参考话术如下：',
-        btns: [{
+        fork: [{
           btnName: '符合',
-          btns: [],
-          items: [{
+          fork: [],
+          content: [{
             title: '符合',
             content: '个人办理手续渠道如下：',
-            btns: []
+            fork: []
           }]
         }, {
           btnName: '不符合',
-          items: [{
+          content: [{
             title: '不符合',
             content: '不符合就算了，请另请高就，拜拜！！',
-            btns: []
+            fork: []
           }],
-          btns: []
+          fork: []
         }]
       }]
     }, {
       btnName: '携入',
-      items: [{
+      content: [{
         title: '携入',
         content: '就这样吧',
-        btns: []
+        fork: []
       }],
-      btns: []
+      fork: []
     }]
   }]
 }

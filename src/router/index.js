@@ -271,7 +271,7 @@ export const asyncRoutes = [
       },
       {
         path: 'excel-detail',
-        component: () => import('@/views/excel/upload-excel'),
+        component: () => import('@/views/excel/data-detail'),
         name: 'UploadExcel',
         meta: { title: '数据详情' }
       }
