@@ -31,7 +31,7 @@
       </el-card>
 
     </div>
-    <div v-if="data.type==='branch'">
+    <div v-if="data.type==='branch'" style="overflow:auto">
 
       <el-card
         v-for="item in branchLine"
@@ -41,9 +41,7 @@
         <div slot="header" class="step-title clearfix">
           <span>{{ item.title }}</span>
         </div>
-        <div class="text item">
-          {{ item.text }}
-        </div>
+        <div class="text item" v-html="item.text" />
         <div class="btn-div">
           <div v-if="item.fork.length>0">
 

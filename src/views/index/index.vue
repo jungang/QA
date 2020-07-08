@@ -37,7 +37,7 @@
             </ul>
           </template>
 
-          <template slot="paneR">
+          <template slot="paneR" style="overflow: auto;">
 
             <answer :data="currentQuestion.answer" />
 
