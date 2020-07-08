@@ -118,6 +118,8 @@ export default {
   .answer-container{
     margin: 10px;
     font-size: 14px;
+    height:100vh;
+    overflow: auto;
 
   }
   .btn-div {

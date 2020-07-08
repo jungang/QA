@@ -5,7 +5,7 @@ const data = [
     question: [
       {
         id: '001',
-        name: 'mock 套餐查询说明11111',
+        name: '流量包取消',
         answer: {
           type: 'branch', // 1：标准 article  2：流程 branchFlow
           answerName: '套餐查询说明11111',
