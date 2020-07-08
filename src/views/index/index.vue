@@ -24,7 +24,7 @@
         <split-pane split="vertical" :default-percent="40" @resize="resize">
 
           <template slot="paneL" class="panel">
-            <el-input v-model="searchKeyword" class="search" placeholder="输入关键字搜索" @input="handleFilter" />
+            <el-input v-model="searchKeyword" class="search" placeholder="输入关键字搜索（多个关键词请用空格分开）" @input="handleFilter" />
             <ul class="q-list">
               <li
                 v-for="item in listQuestions"
@@ -98,7 +98,16 @@ export default {
     handleFilter() {
       this.createListQuestions(this.allData.data)
       console.log('this.allQuestions:', this.allQuestions)
-      this.listQuestions = this.allQuestions.filter(data => !this.searchKeyword || data.name.toLowerCase().includes(this.searchKeyword.toLowerCase()))
+      if (this.searchKeyword.split(' ').length === 1) {
+        this.listQuestions = this.allQuestions.filter(data => !this.searchKeyword || data.name.toLowerCase().includes(this.searchKeyword.toLowerCase()))
+      } else {
+        this.listQuestions = this.allQuestions
+        for (let i = 0; i < this.searchKeyword.split(' ').length; i++) {
+          if (this.searchKeyword.split(' ')[i] !== '') {
+            this.listQuestions = this.listQuestions.filter(data => !this.searchKeyword || data.name.toLowerCase().includes(this.searchKeyword.split(' ')[i].toLowerCase()))
+          }
+        }
+      }
     },
     createListQuestions(data) {
       this.allQuestions = []
