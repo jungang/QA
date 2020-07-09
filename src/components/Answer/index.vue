@@ -55,7 +55,7 @@
 
           </div>
 
-          <el-button v-if="item.fork.length===0" type="primary">结束</el-button>
+          <el-button v-if="item.fork.length===0">结束</el-button>
         </div>
       </el-card>
 
