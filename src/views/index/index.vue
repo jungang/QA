@@ -144,7 +144,7 @@ export default {
 <style lang="scss" scoped>
   .app-container {
     position: relative;
-    height: 100vh;
+    height: 95vh;
     padding-top: 0;
   }
 
