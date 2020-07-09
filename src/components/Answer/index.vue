@@ -102,7 +102,7 @@ export default {
         if (!_v) data.curFork = data.fork[0].btnName
         const children = _v ? _v.content : data.fork[0].content
         children.parent = data.curFork
-        console.log('children:', children)
+        // console.log('children:', children)
         this.recursion(children)
       }
     },
