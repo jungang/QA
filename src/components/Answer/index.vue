@@ -39,7 +39,7 @@
         shadow="hover"
       >
         <div slot="header" class="step-title clearfix">
-          <span>{{ item.title }}</span>
+          <span>{{ item.parent ? item.parent+"--" : "" }}{{ item.title }}</span>
         </div>
         <div class="text item" v-html="item.text" />
         <div class="btn-div">
@@ -100,7 +100,10 @@ export default {
       if (data.fork.length > 0) {
         const _v = data.fork.find(f => f.btnName === data.curFork)
         if (!_v) data.curFork = data.fork[0].btnName
-        this.recursion(_v ? _v.content : data.fork[0].content)
+        const children = _v ? _v.content : data.fork[0].content
+        children.parent = data.curFork
+        console.log('children:', children)
+        this.recursion(children)
       }
     },
     selectClick(item, obj) {
