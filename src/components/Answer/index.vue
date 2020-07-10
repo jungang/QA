@@ -39,7 +39,8 @@
         shadow="hover"
       >
         <div slot="header" class="step-title clearfix">
-          <span>{{ item.parent ? item.parent+"--" : "" }}{{ item.title }}</span>
+          <span v-if="item.parent" style="color: #1890ff">{{ item.parent + " →" }} </span>
+          <span>{{ item.title }}</span>
         </div>
         <div class="text item" v-html="item.text" />
         <div class="btn-div">
@@ -102,7 +103,7 @@ export default {
         if (!_v) data.curFork = data.fork[0].btnName
         const children = _v ? _v.content : data.fork[0].content
         children.parent = data.curFork
-        console.log('children:', children)
+        // console.log('children:', children)
         this.recursion(children)
       }
     },
