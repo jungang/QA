@@ -151,6 +151,8 @@ export default {
   .q-list {
     padding: 0;
     margin: 0;
+    overflow-y: auto;
+    height: 90vh;
     li{
       font-size: 14px;
       display: block;
