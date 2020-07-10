@@ -97,7 +97,7 @@ export default {
     },
     handleFilter() {
       this.createListQuestions(this.allData.data)
-      console.log('this.allQuestions:', this.allQuestions)
+      // console.log('this.allQuestions:', this.allQuestions)
       if (this.searchKeyword.split(' ').length === 1) {
         this.listQuestions = this.allQuestions.filter(data => !this.searchKeyword || data.name.toLowerCase().includes(this.searchKeyword.toLowerCase()))
       } else {
@@ -114,7 +114,7 @@ export default {
       data.forEach(item => this.recursionQ(item))
       this.listQuestions = this.allQuestions
       // this.currentQuestion = {}
-      console.log('this.allQuestions:', this.allQuestions)
+      // console.log('this.allQuestions:', this.allQuestions)
     },
     recursionQ(item) {
       // console.log('item:', item)
@@ -152,7 +152,7 @@ export default {
     padding: 0;
     margin: 0;
     overflow-y: auto;
-    height: 90vh;
+    height: 85vh;
     li{
       font-size: 14px;
       display: block;
