@@ -147,7 +147,10 @@ export default {
     height: 95vh;
     padding-top: 0;
   }
-
+.el-tree{
+  overflow-y: auto;
+  height: 85vh;
+}
   .q-list {
     padding: 0;
     margin: 0;
