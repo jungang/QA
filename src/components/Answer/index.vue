@@ -49,6 +49,7 @@
             <el-button
               v-for="btn in item.fork"
               :key="btn.btnName"
+              v-waves
               type="primary"
               :disabled="btn.btnName === item.curFork"
               @click="selectClick(item, btn)"
@@ -65,8 +66,10 @@
 </template>
 
 <script>
+import waves from '@/directive/waves' // waves directive
 export default {
   name: 'Answer',
+  directives: { waves },
   props: {
     data: {
       type: Object,
