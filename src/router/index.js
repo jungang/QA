@@ -182,6 +182,48 @@ export const asyncRoutes = [
       }
     ]
   },
+
+  {
+    path: '/content-manage',
+    component: Layout,
+    redirect: '/content-manage/category',
+    name: 'ContentManage',
+    meta: {
+      title: '内容管理',
+      icon: 'el-icon-s-help'
+    },
+    children: [
+      {
+        path: 'category',
+        component: () => import('@/views/content-manage/category'),
+        name: 'Category',
+        meta: { title: '内容分类设置', icon: 'list' }
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/content-manage/list'),
+        name: 'ArticleList',
+        meta: { title: '问题列表', icon: 'list' }
+      },
+      {
+        path: 'create',
+        component: () => import('@/views/content-manage/create'),
+        name: 'edit',
+        meta: {
+          title: '新建问题',
+          icon: 'edit',
+          roles: ['admin']
+        }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/content-manage/edit'),
+        name: 'EditArticle',
+        meta: { title: '修改问题', noCache: true, activeMenu: '/content-manage/list' },
+        hidden: true
+      }
+    ]
+  },
   //
   // {
   //   path: '/tab',
